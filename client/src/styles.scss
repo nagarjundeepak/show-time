@@ -1,0 +1,43 @@
+// app primary colors
+$primary-bg: #f0f4f5;
+$primary-brown: #795548;
+$primary-grey: #363b4a;
+
+.trendingBlock {
+  display: flex;
+  height: 80vh;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.movieCard {
+  display: flex;
+  flex-direction: row;
+  margin: 50px;
+  max-width: 150px;
+  transition-duration: 1s;
+  transform-style: preserve-3d;
+  text-align: center;
+  &__front,
+  &__back {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__front {
+    backface-visibility: hidden;
+  }
+  &__back {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+  }
+  &:hover {
+    transform: rotateY(180deg);
+    cursor: pointer;
+  }
+}
