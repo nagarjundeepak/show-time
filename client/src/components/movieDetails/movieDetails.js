@@ -7,7 +7,6 @@ import {addToUser} from '../../store/actions/addToUserActions';
 import Ratings from '../containers/ratings';
 
 function MovieDetails (props) {
-  console.log (props.AddingToUser);
   const [isRated, setIsRated] = useState (false);
   const [value, setValue] = useState (null);
   const {isAuthenticated, user} = props.auth;
