@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import {IMG_COVER_PATH} from '../../store/utils/keys';
 import {putRating} from '../../store/actions/userRatingActions';
-import {deleteCurrent} from '../../store/actions/currentMovieActions';
 import {addToUser} from '../../store/actions/addToUserActions';
 import Ratings from '../containers/ratings';
 
@@ -34,7 +33,7 @@ function MovieDetails (props) {
           });
       }
     },
-    [isRated, isAuthenticated, value]
+    [isRated, isAuthenticated, value, data, user.id]
   );
 
   // chceking for genres
