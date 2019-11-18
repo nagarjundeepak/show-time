@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from 'react';
+import {connect} from 'react-redux';
 import axios from 'axios';
 import {URL, API_KEY} from '../../../store/utils/keys';
 import MovieCard from '../../containers/movieCard';
+import {deleteCurrent} from '../../../store/actions/currentMovieActions';
 
-function TrendingBlock (props) {
+function Trendingblock (props) {
+  // props.removeCurrent();
   const [items, setItems] = useState ([]);
   const [isLoading, setIsLoading] = useState (false);
   const url = props.query !== null
@@ -32,5 +35,15 @@ function TrendingBlock (props) {
     </div>
   );
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    removeCurrent: () => {
+      dispatch (deleteCurrent ());
+    },
+  };
+};
+
+let TrendingBlock = connect (null, mapDispatchToProps) (Trendingblock);
 
 export {TrendingBlock};

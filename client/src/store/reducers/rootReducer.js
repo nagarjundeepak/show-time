@@ -1,6 +1,9 @@
-import { combineReducers } from "redux";
-import authReducer from "./authReducer";
+import {combineReducers} from 'redux';
 
-const RootReducer = combineReducers({ auth: authReducer });
+import Genres from './genreReducer';
+import Ratings from './userRatingReducer';
+import CurrentMovie from './currentMovieReducer';
+
+const RootReducer = combineReducers ({Genres, Ratings, CurrentMovie});
 
 export default RootReducer;

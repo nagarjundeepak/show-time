@@ -1,13 +1,13 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
-import { logoutUser } from "../../store/actions/authActions";
+import React from 'react';
+import {connect} from 'react-redux';
+import {Link, NavLink} from 'react-router-dom';
+import {logoutUser} from '../../store/actions/authActions';
 
-function Header(props) {
-  const { isAuthenticated } = props.auth;
+function Header (props) {
+  const {isAuthenticated} = props.auth;
   const handleClick = () => {
-    props.logoutUser();
-    alert("you are logging out!");
+    props.logoutUser ();
+    alert ('you are logging out!');
   };
   return (
     <div className="navbar navbar-dark bg-dark">
@@ -16,34 +16,32 @@ function Header(props) {
           Show Time
         </Link>
         <ul className="navbar-nav">
-          {isAuthenticated ? (
-            <div onClick={handleClick}>
-              <li className="nav-item">
-                <NavLink to="/" className="nav-link">
-                  Logout
-                </NavLink>
-              </li>
-            </div>
-          ) : (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-around",
-                minWidth: "150px"
-              }}
-            >
-              <li className="nav-item">
-                <NavLink to="/register" className="nav-link">
-                  Register
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to="/login" className="nav-link">
-                  Login
-                </NavLink>
-              </li>
-            </div>
-          )}
+          {isAuthenticated
+            ? <div onClick={handleClick}>
+                <li className="nav-item">
+                  <NavLink to="/" className="nav-link">
+                    Logout
+                  </NavLink>
+                </li>
+              </div>
+            : <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-around',
+                  minWidth: '150px',
+                }}
+              >
+                <li className="nav-item">
+                  <NavLink to="/register" className="nav-link">
+                    Register
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink to="/login" className="nav-link">
+                    Login
+                  </NavLink>
+                </li>
+              </div>}
         </ul>
       </div>
     </div>
@@ -51,7 +49,7 @@ function Header(props) {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
 });
 
-export default connect(mapStateToProps, { logoutUser })(Header);
+export default connect (mapStateToProps, {logoutUser}) (Header);
