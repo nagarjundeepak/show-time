@@ -12,7 +12,7 @@ export const AddingToUser = (state = initState, action) => {
         .catch (err => {
           console.error (err);
         });
-      return state;
+      return {...state, userData: [...state.userData, action.data]};
     default:
       return state;
   }

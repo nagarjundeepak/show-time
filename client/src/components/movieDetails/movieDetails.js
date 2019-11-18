@@ -7,6 +7,7 @@ import {addToUser} from '../../store/actions/addToUserActions';
 import Ratings from '../containers/ratings';
 
 function MovieDetails (props) {
+  console.log (props.AddingToUser);
   const [isRated, setIsRated] = useState (false);
   const [value, setValue] = useState (null);
   const {isAuthenticated, user} = props.auth;
@@ -27,7 +28,7 @@ function MovieDetails (props) {
       if (isRated && isAuthenticated) {
         axios
           .post ('/api/movies', {movie: data, rating: value, userId: user.id})
-          .then (res => console.log (res))
+          .then (res => console.log ('data send'))
           .catch (err => {
             console.error (err);
           });
