@@ -26,7 +26,7 @@ function Login (props) {
     setIsLoggedIn (true);
   };
   if (isLoggedIn) {
-    props.history.push ('./dashboard');
+    props.history.push ('/');
   }
   return (
     <React.Fragment>

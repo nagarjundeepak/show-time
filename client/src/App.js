@@ -6,6 +6,7 @@ import Login from './components/auth/login';
 import Header from './components/layouts/header';
 import Landing from './components/layouts/landing/landing';
 import MovieDetails from './components/movieDetails/movieDetails';
+import Dashboard from './components/dashboard/ratedMovies';
 
 function App () {
   return (
@@ -19,6 +20,9 @@ function App () {
         </Switch>
         <Switch>
           <Route exact path="/details" component={MovieDetails} />
+        </Switch>
+        <Switch>
+          <Route exact path="/dashboard" component={Dashboard} />
         </Switch>
       </Router>
     </div>

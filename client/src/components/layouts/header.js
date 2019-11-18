@@ -17,12 +17,26 @@ function Header (props) {
         </Link>
         <ul className="navbar-nav">
           {isAuthenticated
-            ? <div onClick={handleClick}>
-                <li className="nav-item">
-                  <NavLink to="/" className="nav-link">
-                    Logout
-                  </NavLink>
-                </li>
+            ? <div
+                style={{
+                  display: 'flex',
+                  width: '200px',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <div>
+                  <li className="nav-item">
+                    <NavLink to="/dashboard" className="nav-link">
+                      My Ratings
+                    </NavLink>
+                  </li>
+                </div><div onClick={handleClick}>
+                  <li className="nav-item">
+                    <NavLink to="/" className="nav-link">
+                      Logout
+                    </NavLink>
+                  </li>
+                </div>
               </div>
             : <div
                 style={{

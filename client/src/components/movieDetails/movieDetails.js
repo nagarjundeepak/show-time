@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
+import axios from 'axios';
 import {IMG_COVER_PATH} from '../../store/utils/keys';
 import {putRating} from '../../store/actions/userRatingActions';
 import {deleteCurrent} from '../../store/actions/currentMovieActions';
@@ -9,7 +10,7 @@ import Ratings from '../containers/ratings';
 function MovieDetails (props) {
   const [isRated, setIsRated] = useState (false);
   const [value, setValue] = useState (null);
-  const {isAuthenticated} = props.auth;
+  const {isAuthenticated, user} = props.auth;
   if (props.CurrentMovie.current.length === 0) {
     props.history.push ('/');
   }
@@ -25,7 +26,12 @@ function MovieDetails (props) {
   useEffect (
     () => {
       if (isRated && isAuthenticated) {
-        props.onAddToUser ({movie: data, rating: value});
+        axios
+          .post ('/api/movies', {movie: data, rating: value, userId: user.id})
+          .then (res => console.log (res))
+          .catch (err => {
+            console.error (err);
+          });
       }
     },
     [isRated, isAuthenticated, value]
