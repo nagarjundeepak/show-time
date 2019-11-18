@@ -1,30 +1,35 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, {useState} from 'react';
+import {connect} from 'react-redux';
+import axios from 'axios';
 
-function Register(props) {
-  const [data, setData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    errors: {}
+function Register (props) {
+  const {isAuthenticated} = props.auth;
+  if (isAuthenticated) {
+    props.history.push ('/');
+  }
+  const [data, setData] = useState ({
+    username: '',
+    email: '',
+    password: '',
+    errors: {},
   });
   const handleChange = e => {
-    setData({ ...data, [e.target.name]: e.target.value });
+    setData ({...data, [e.target.name]: e.target.value});
   };
   const handleSubmit = e => {
-    e.preventDefault();
+    e.preventDefault ();
     const newUser = {
       username: data.username,
       email: data.email,
-      password: data.password
+      password: data.password,
     };
     axios
-      .post("/api/users/register", newUser)
-      .then(res => {
-        props.history.push("./login");
+      .post ('/api/users/register', newUser)
+      .then (res => {
+        props.history.push ('./login');
       })
-      .catch(err => {
-        setData({ errors: err.response.data });
+      .catch (err => {
+        setData ({errors: err.response.data});
       });
   };
   return (
@@ -42,9 +47,9 @@ function Register(props) {
                   value={data.username}
                   onChange={handleChange}
                   className={
-                    data.errors.type === "username"
-                      ? "is-invalid form-control"
-                      : "form-control"
+                    data.errors.type === 'username'
+                      ? 'is-invalid form-control'
+                      : 'form-control'
                   }
                   placeholder="Enter your username"
                 />
@@ -57,9 +62,9 @@ function Register(props) {
                   value={data.email}
                   onChange={handleChange}
                   className={
-                    data.errors.type === "email"
-                      ? "is-invalid form-control"
-                      : "form-control"
+                    data.errors.type === 'email'
+                      ? 'is-invalid form-control'
+                      : 'form-control'
                   }
                   placeholder="Enter your Email"
                 />
@@ -72,9 +77,9 @@ function Register(props) {
                   value={data.password}
                   onChange={handleChange}
                   className={
-                    data.errors.type === "password"
-                      ? "is-invalid form-control"
-                      : "form-control"
+                    data.errors.type === 'password'
+                      ? 'is-invalid form-control'
+                      : 'form-control'
                   }
                   placeholder="Enter your Password"
                 />
@@ -93,4 +98,8 @@ function Register(props) {
   );
 }
 
-export default Register;
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
+export default connect (mapStateToProps) (Register);

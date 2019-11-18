@@ -5,17 +5,15 @@ import {IMG_PATH} from '../../store/utils/keys';
 import {currentMovie} from '../../store/actions/currentMovieActions';
 
 function MovieCard({data, setCurrent, ratingList}) {
-  if (data.id === 82856) {
-    console.log (ratingList);
-  }
-  // console.log(ratingList);
+  // getting ratings
   let alreadyRated = helper (ratingList, data.id);
-  if (alreadyRated !== 0) {
-    console.log (alreadyRated);
-  }
+  let tid = alreadyRated.tid;
+
   const handleClick = () => {
     setCurrent (data);
   };
+  let myRating = tid === data.id ? alreadyRated.res : 'N/A';
+
   return (
     <Link to="/details">
       <div className="movieCard" onClick={handleClick}>
@@ -36,7 +34,7 @@ function MovieCard({data, setCurrent, ratingList}) {
           <div>{data.media_type}</div>
           <div>{`IMDB Rating: ${data.vote_average}`}</div>
           <div>Users Rating: {}</div>
-          <div>Your Rating: </div>
+          <div>Your Rating: {myRating}</div>
         </div>
       </div>
     </Link>
@@ -61,11 +59,13 @@ export default connect (mapStateToProps, mapDispatchToProps) (MovieCard);
 
 function helper (arr, id) {
   let res = 0;
+  let tid = undefined;
   for (let i = 0; i < arr.length; i++) {
-    console.log (arr[i]);
-    if (arr[i].id === id) {
-      res = arr[i];
+    if (arr[i].movie.id === id) {
+      res = arr[i].rating;
+      tid = arr[i].movie.id;
+      return {res, tid};
     }
   }
-  return res;
+  return {res, tid};
 }

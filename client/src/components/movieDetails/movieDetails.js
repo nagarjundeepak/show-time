@@ -1,34 +1,38 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {IMG_COVER_PATH} from '../../store/utils/keys';
 import {putRating} from '../../store/actions/userRatingActions';
 import {deleteCurrent} from '../../store/actions/currentMovieActions';
+import {addToUser} from '../../store/actions/addToUserActions';
 import Ratings from '../containers/ratings';
 
 function MovieDetails (props) {
-  // console.log(props.CurrentMovie.current);
+  const [isRated, setIsRated] = useState (false);
+  const [value, setValue] = useState (null);
+  const {isAuthenticated} = props.auth;
   if (props.CurrentMovie.current.length === 0) {
     props.history.push ('/');
   }
-
-  // unmount stage
-  /* useEffect(() => {
-    return () => {
-      props.removeCurrent();
-    };
-  }, []); */
-
   // getting current data from store
   const data = props.CurrentMovie.current;
+  // getting rating
+  const handleRating = val => {
+    setValue (val);
+    props.setRating (val, data);
+    setIsRated (true);
+  };
+  // unmount stage
+  useEffect (
+    () => {
+      if (isRated && isAuthenticated) {
+        props.onAddToUser ({movie: data, rating: value});
+      }
+    },
+    [isRated, isAuthenticated, value]
+  );
+
   // chceking for genres
   let gArr = finder (data.genre_ids, props.Genres.genres);
-
-  // getting rating
-
-  const handleRating = val => {
-    console.log (val);
-    props.setRating (val, data);
-  };
 
   return (
     <div className="container">
@@ -72,6 +76,9 @@ const mapDispatchToProps = dispatch => {
   return {
     setRating: (val, data) => {
       dispatch (putRating (val, data));
+    },
+    onAddToUser: data => {
+      dispatch (addToUser (data));
     },
   };
 };

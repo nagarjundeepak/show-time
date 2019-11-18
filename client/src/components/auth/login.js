@@ -1,28 +1,32 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { loginUser } from "../../store/actions/authActions";
+import React, {useState} from 'react';
+import {connect} from 'react-redux';
+import {loginUser} from '../../store/actions/authActions';
 
-function Login(props) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [data, setData] = useState({
-    email: "",
-    password: "",
-    errors: {}
+function Login (props) {
+  const {isAuthenticated} = props.auth;
+  if (isAuthenticated) {
+    props.history.push ('/');
+  }
+  const [isLoggedIn, setIsLoggedIn] = useState (false);
+  const [data, setData] = useState ({
+    email: '',
+    password: '',
+    errors: {},
   });
   const handleChange = e => {
-    setData({ ...data, [e.target.name]: e.target.value });
+    setData ({...data, [e.target.name]: e.target.value});
   };
   const handleSubmit = e => {
-    e.preventDefault();
+    e.preventDefault ();
     const newUser = {
       email: data.email,
-      password: data.password
+      password: data.password,
     };
-    props.loginUser(newUser);
-    setIsLoggedIn(true);
+    props.loginUser (newUser);
+    setIsLoggedIn (true);
   };
   if (isLoggedIn) {
-    props.history.push("./dashboard");
+    props.history.push ('./dashboard');
   }
   return (
     <React.Fragment>
@@ -39,9 +43,9 @@ function Login(props) {
                   value={data.email}
                   onChange={handleChange}
                   className={
-                    data.errors.type === "email"
-                      ? "is-invalid form-control"
-                      : "form-control"
+                    data.errors.type === 'email'
+                      ? 'is-invalid form-control'
+                      : 'form-control'
                   }
                   placeholder="Enter your Email"
                 />
@@ -54,9 +58,9 @@ function Login(props) {
                   value={data.password}
                   onChange={handleChange}
                   className={
-                    data.errors.type === "password"
-                      ? "is-invalid form-control"
-                      : "form-control"
+                    data.errors.type === 'password'
+                      ? 'is-invalid form-control'
+                      : 'form-control'
                   }
                   placeholder="Enter your Password"
                 />
@@ -76,7 +80,7 @@ function Login(props) {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
 });
 
-export default connect(mapStateToProps, { loginUser })(Login);
+export default connect (mapStateToProps, {loginUser}) (Login);
