@@ -33,7 +33,6 @@ function MovieCard({data, setCurrent, ratingList}) {
           <div>{data.release_date}</div>
           <div>{data.media_type}</div>
           <div>{`IMDB Rating: ${data.vote_average}`}</div>
-          <div>Users Rating: {}</div>
           <div>Your Rating: {myRating}</div>
         </div>
       </div>
